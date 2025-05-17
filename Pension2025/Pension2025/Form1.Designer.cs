@@ -29,25 +29,25 @@ namespace Pension2025
     /// </summary>
     private void InitializeComponent()
     {
-            this.btnParseList01 = new System.Windows.Forms.Button();
+            this.btnParseList = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnParseList01
+            // btnParseList
             // 
-            this.btnParseList01.Location = new System.Drawing.Point(30, 30);
-            this.btnParseList01.Name = "btnParseList01";
-            this.btnParseList01.Size = new System.Drawing.Size(172, 31);
-            this.btnParseList01.TabIndex = 0;
-            this.btnParseList01.Text = "Parse list files into List01.txt";
-            this.btnParseList01.UseVisualStyleBackColor = true;
-            this.btnParseList01.Click += new System.EventHandler(this.btnParseList01_Click);
+            this.btnParseList.Location = new System.Drawing.Point(30, 30);
+            this.btnParseList.Name = "btnParseList";
+            this.btnParseList.Size = new System.Drawing.Size(172, 31);
+            this.btnParseList.TabIndex = 0;
+            this.btnParseList.Text = "Parse list files into List.txt";
+            this.btnParseList.UseVisualStyleBackColor = true;
+            this.btnParseList.Click += new System.EventHandler(this.btnParseList_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnParseList01);
+            this.Controls.Add(this.btnParseList);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -56,7 +56,7 @@ namespace Pension2025
 
         #endregion
 
-        private System.Windows.Forms.Button btnParseList01;
+        private System.Windows.Forms.Button btnParseList;
     }
 }
 

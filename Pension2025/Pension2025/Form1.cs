@@ -10,12 +10,11 @@ namespace Pension2025
             InitializeComponent();
         }
 
-        private async void btnParseList01_Click(object sender, System.EventArgs e)
+        private async void btnParseList_Click(object sender, System.EventArgs e)
         {
-            btnParseList01.Enabled = false;
+            btnParseList.Enabled = false;
             await Task.Factory.StartNew(Actions.ParseList.Run);
-            btnParseList01.Enabled = true;
+            btnParseList.Enabled = true;
         }
-
     }
 }
