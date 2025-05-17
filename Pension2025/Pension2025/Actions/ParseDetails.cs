@@ -9,13 +9,11 @@ namespace Pension2025.Actions
         public static void Run()
         {
             var cnt = 0;
-            var textFileName = Path.Combine(Settings.DataFolder, "Details.txt");
-
             var folder = Path.Combine(Settings.DataFolder, "Details");
             var files = Directory.GetFiles(folder, "*.html").OrderBy(File.GetLastWriteTime).ToArray();
-            // var data = new Dictionary<string, (string, string, string, string, string, string, string, string)>();
             foreach (var file in files)
             {
+                cnt++;
                 var content = File.ReadAllText(file);
                 var ss1 = content.Split("fixed-width");
                 if (ss1.Length != 2)
@@ -42,6 +40,5 @@ namespace Pension2025.Actions
                 return sourceText;
             }
         }
-
     }
 }
