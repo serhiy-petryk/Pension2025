@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pension2025
@@ -10,14 +10,12 @@ namespace Pension2025
             InitializeComponent();
         }
 
-        private void btnParseList01_Click(object sender, System.EventArgs e)
+        private async void btnParseList01_Click(object sender, System.EventArgs e)
         {
-            var folder = Path.Combine(Settings.DataFolder, @"List01");
-            var files = Directory.GetFiles(folder, "*.html");
-            foreach (var file in files)
-            {
-                var content = File.ReadAllText(file);
-            }
+            btnParseList01.Enabled = false;
+            await Task.Factory.StartNew(Actions.ParseList.Run);
+            btnParseList01.Enabled = true;
         }
+
     }
 }
