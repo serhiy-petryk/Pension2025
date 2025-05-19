@@ -11,12 +11,6 @@ namespace Pension2025.Actions
         public static void Run()
         {
             var cnt = 0;
-            var textFileName = Path.Combine(Settings.DataFolder, "List.txt");
-            var resultKindsFileName = Path.Combine(Settings.DataFolder, "ResultKinds.txt");
-            var typesFileName = Path.Combine(Settings.DataFolder, "Types.txt");
-            var courtsFileName = Path.Combine(Settings.DataFolder, "Courts.txt");
-            var byDateFileName = Path.Combine(Settings.DataFolder, "ByDate.txt");
-
             var folder = Path.Combine(Settings.DataFolder, "List01");
             var files = Directory.GetFiles(folder, "*.html");
             var data = new Dictionary<string, ListItem>();
@@ -55,7 +49,12 @@ namespace Pension2025.Actions
             var printData = new List<string>();
             printData.Add(ListItem.ListFileHeader);
             printData.AddRange(data.Values.Select(a => a.ToListString()));
-            File.WriteAllLines(textFileName, printData);
+            File.WriteAllLines(Settings.ListFileName, printData);
+
+            var resultKindsFileName = Path.Combine(Settings.DataFolder, "ResultKinds.txt");
+            var typesFileName = Path.Combine(Settings.DataFolder, "Types.txt");
+            var courtsFileName = Path.Combine(Settings.DataFolder, "Courts.txt");
+            var byDateFileName = Path.Combine(Settings.DataFolder, "ByDate.txt");
 
             printData.Clear();
             printData.Add("ResultKind\tCount");

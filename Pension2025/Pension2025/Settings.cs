@@ -1,10 +1,13 @@
 ﻿using System.Globalization;
+using System.IO;
 
 namespace Pension2025
 {
     public static class Settings
     {
-        public static string DataFolder = @"E:\Temp\Pension2025";
+        public const string DataFolder = @"E:\Temp\Pension2025";
+        public static string ListFileName = Path.Combine(DataFolder, "List.txt");
+        public static string ExtendedListFileName = Path.Combine(DataFolder, "ExtendedList.txt");
         public static CultureInfo UaCulture = new CultureInfo("uk");
     }
 }

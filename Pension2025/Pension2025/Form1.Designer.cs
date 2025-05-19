@@ -31,6 +31,7 @@ namespace Pension2025
     {
             this.btnParseList = new System.Windows.Forms.Button();
             this.btnParseDetails = new System.Windows.Forms.Button();
+            this.btnRemoveUselessTagsOfDetails = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnParseList
@@ -45,7 +46,7 @@ namespace Pension2025
             // 
             // btnParseDetails
             // 
-            this.btnParseDetails.Location = new System.Drawing.Point(30, 81);
+            this.btnParseDetails.Location = new System.Drawing.Point(30, 131);
             this.btnParseDetails.Name = "btnParseDetails";
             this.btnParseDetails.Size = new System.Drawing.Size(172, 31);
             this.btnParseDetails.TabIndex = 1;
@@ -53,11 +54,22 @@ namespace Pension2025
             this.btnParseDetails.UseVisualStyleBackColor = true;
             this.btnParseDetails.Click += new System.EventHandler(this.btnParseDetails_Click);
             // 
+            // btnRemoveUselessTagsOfDetails
+            // 
+            this.btnRemoveUselessTagsOfDetails.Location = new System.Drawing.Point(30, 79);
+            this.btnRemoveUselessTagsOfDetails.Name = "btnRemoveUselessTagsOfDetails";
+            this.btnRemoveUselessTagsOfDetails.Size = new System.Drawing.Size(231, 31);
+            this.btnRemoveUselessTagsOfDetails.TabIndex = 2;
+            this.btnRemoveUselessTagsOfDetails.Text = "RemoveUselessTags of detail htmls";
+            this.btnRemoveUselessTagsOfDetails.UseVisualStyleBackColor = true;
+            this.btnRemoveUselessTagsOfDetails.Click += new System.EventHandler(this.btnRemoveUselessTagsOfDetails_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRemoveUselessTagsOfDetails);
             this.Controls.Add(this.btnParseDetails);
             this.Controls.Add(this.btnParseList);
             this.Name = "Form1";
@@ -70,6 +82,7 @@ namespace Pension2025
 
         private System.Windows.Forms.Button btnParseList;
         private System.Windows.Forms.Button btnParseDetails;
+        private System.Windows.Forms.Button btnRemoveUselessTagsOfDetails;
     }
 }
 

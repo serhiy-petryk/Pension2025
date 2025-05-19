@@ -147,5 +147,78 @@ namespace Pension2025.Helpers
             }
         }
         #endregion
+
+        public static string RemoveUselessTags(string htmlContent)
+        {
+            var len = htmlContent.Length;
+            var i1 = htmlContent.IndexOf("<!-- BEGIN WAYBACK TOOLBAR INSERT -->", StringComparison.InvariantCulture);
+            var i2 = htmlContent.LastIndexOf("<!-- END WAYBACK TOOLBAR INSERT -->", StringComparison.InvariantCulture);
+            if (i1 > -1 && i2 > i1) // file from web.archive.org
+            {
+                htmlContent = htmlContent.Substring(0, i1) + htmlContent.Substring(i2 + 35);
+            }
+
+            i1 = htmlContent.IndexOf("<body", StringComparison.InvariantCulture);
+            i2 = htmlContent.LastIndexOf("</body>", StringComparison.InvariantCulture);
+            if (i2 > i1 && i1 > -1)
+            {
+                htmlContent = htmlContent.Substring(i1, i2 - i1 + 7);
+            }
+
+            i1 = htmlContent.IndexOf("</script>", StringComparison.InvariantCulture);
+            while (i1 != -1)
+            {
+                i2 = htmlContent.LastIndexOf("<script", i1, StringComparison.InvariantCulture);
+                if (i2 == -1)
+                    break;
+                htmlContent = htmlContent.Substring(0, i2) + htmlContent.Substring(i1 + 9);
+                i1 = htmlContent.IndexOf("</script>", StringComparison.InvariantCulture);
+            }
+
+            i1 = htmlContent.IndexOf("</style>", StringComparison.InvariantCulture);
+            while (i1 != -1)
+            {
+                i2 = htmlContent.LastIndexOf("<style", i1, StringComparison.InvariantCulture);
+                if (i2 == -1)
+                    break;
+                htmlContent = htmlContent.Substring(0, i2) + htmlContent.Substring(i1 + 8);
+                i1 = htmlContent.IndexOf("</style>", StringComparison.InvariantCulture);
+            }
+
+            i1 = htmlContent.IndexOf("</svg>", StringComparison.InvariantCulture);
+            while (i1 != -1)
+            {
+                i2 = htmlContent.LastIndexOf("<svg", i1, StringComparison.InvariantCulture);
+                if (i2 == -1)
+                    break;
+                htmlContent = htmlContent.Substring(0, i2) + htmlContent.Substring(i1 + 6);
+                i1 = htmlContent.IndexOf("</svg>", StringComparison.InvariantCulture);
+            }
+
+            /* not need: file size is less only ~5%
+            i1 = htmlContent.IndexOf("-->", StringComparison.InvariantCulture);
+            while (i1 != -1)
+            {
+                i2 = htmlContent.LastIndexOf("<!--", i1, StringComparison.InvariantCulture);
+                if (i2 == -1)
+                    break;
+                htmlContent = htmlContent.Substring(0, i2) + htmlContent.Substring(i1 + 3);
+                i1 = htmlContent.IndexOf("-->", StringComparison.InvariantCulture);
+            }
+
+            i1 = htmlContent.IndexOf(" style=\"", StringComparison.InvariantCulture);
+            while (i1 != -1)
+            {
+                i2 = htmlContent.IndexOf("\"", i1+8, StringComparison.InvariantCulture);
+                if (i2 == -1)
+                    break;
+                htmlContent = htmlContent.Substring(0, i1) + htmlContent.Substring(i2 + 1);
+                i1 = htmlContent.IndexOf(" style=\"", StringComparison.InvariantCulture);
+            }*/
+
+            var len2 = htmlContent.Length;
+            return htmlContent;
+        }
+
     }
 }
