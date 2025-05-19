@@ -95,9 +95,27 @@ namespace Pension2025.Models
         public DateTime Date { get; set; }
         public string Id => Path.GetFileName(Url);
 
+        public bool IsValid => string.Equals(Type, "Адміністративне") &&
+                               Court.IndexOf("район", StringComparison.CurrentCultureIgnoreCase) == -1 &&
+                               ResultKind.IndexOf("Окрема", StringComparison.InvariantCultureIgnoreCase) == -1;
+
         public string ToListString() => $"{Url}\t{ResultKind}\t{SubListUrl}\t{No}\t{Type}\t{Court}\t{Judge}\t{Date:yyyy-MM-dd}";
         public string ToExtendedListString() => $"{Tag}\t{ToListString()}";
 
         public override string ToString() => $"{ResultKind}\t{Type}\t{Court}\t{Tag}";
+
+        /*
+ResultKind	Count
+Окрема думка	3
+Окрема ухвала	1
+Постанова	2466
+Рішення	6768
+Ухвала	742
+	
+Type	Count
+Адміністративне	9971
+Адмінправопорушення	2
+Цивільне	7
+         */
     }
 }
