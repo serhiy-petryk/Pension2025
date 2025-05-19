@@ -36,6 +36,7 @@ namespace Pension2025
             // 
             // btnParseList
             // 
+            this.btnParseList.Enabled = false;
             this.btnParseList.Location = new System.Drawing.Point(30, 30);
             this.btnParseList.Name = "btnParseList";
             this.btnParseList.Size = new System.Drawing.Size(172, 31);
@@ -56,6 +57,7 @@ namespace Pension2025
             // 
             // btnRemoveUselessTagsOfDetails
             // 
+            this.btnRemoveUselessTagsOfDetails.Enabled = false;
             this.btnRemoveUselessTagsOfDetails.Location = new System.Drawing.Point(30, 79);
             this.btnRemoveUselessTagsOfDetails.Name = "btnRemoveUselessTagsOfDetails";
             this.btnRemoveUselessTagsOfDetails.Size = new System.Drawing.Size(231, 31);
