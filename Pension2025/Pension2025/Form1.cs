@@ -14,6 +14,7 @@ namespace Pension2025
         {
             ((Control)sender).Enabled = false;
             await Task.Factory.StartNew(Actions.ParseList.Run);
+            MessageBox.Show(@"Done!");
             ((Control)sender).Enabled = true;
         }
 
@@ -21,6 +22,7 @@ namespace Pension2025
         {
             ((Control)sender).Enabled = false;
             await Task.Factory.StartNew(Actions.ParseDetails.Run);
+            MessageBox.Show(@"Done!");
             ((Control)sender).Enabled = true;
         }
 
@@ -28,6 +30,7 @@ namespace Pension2025
         {
             ((Control)sender).Enabled = false;
             await Task.Factory.StartNew(Actions.RemoveUselessTagsOfDetails.Run);
+            MessageBox.Show(@"Done!");
             ((Control)sender).Enabled = true;
         }
     }
