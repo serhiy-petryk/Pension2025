@@ -69,7 +69,7 @@ namespace Pension2025.Actions
                 "Суть спору, позиція сторін. Процесуальні дії та заяви сторін.",
                 "Стислий виклад доводів сторін. Процесуальні дії суду:", "проСт. 382 судовий контроль,",
                 "Суть спору, позиція сторін. Процесуальні дії суду. Заяви сторін.",
-                "ОСОБА_1 звернувся до суду з позовом:"
+                "ОСОБА_1 звернувся до суду з позовом:", "ОБСТАВИНИ СПРАВИ:"
             };
             var keyVstanovyv2 = new string[]
             {
@@ -149,6 +149,11 @@ namespace Pension2025.Actions
                 if (!item.IsValid)
                     continue;
 
+                if (cnt == 3349)
+                {
+
+                }
+
                 i1 = -1;
                 foreach (var key in keyVstanovyv)
                 {
@@ -216,6 +221,16 @@ namespace Pension2025.Actions
                 if (i2 == -1)
                     throw new Exception("Check i2");
 
+                var sStart = plainText.Substring(0, i1);
+                ss1 = sStart.Replace("до вчинен", "")
+                    .Split(new string[] { " до ", "\tдо ", " доГоло" }, StringSplitOptions.None);
+                var t1 = cnt;
+                if (ss1.Length != 2)
+                {
+
+                }
+
+
                 var sEnd = plainText.Substring(i2 + 1);
                 var i31 = sEnd.IndexOf("\n", StringComparison.CurrentCulture);
                 var i32 = sEnd.IndexOf("\n", i31 + 1, StringComparison.CurrentCulture);
@@ -251,7 +266,6 @@ namespace Pension2025.Actions
                 else if (keys.Count == 2 && keys[0] == "рийняти позовну заяву" && string.Equals(keys[1], "ідкрити провадження"))
                     keys.RemoveAt(1);
 
-                var t1 = cnt;
                 if (keys.Count != 1 && !string.Equals(item.Id, "127308065-eae29d34b12880eaaf455b180df36537"))
                 {
                 }
