@@ -122,7 +122,7 @@ namespace Pension2025.Actions
             foreach (var file in files)
             {
                 cnt++;
-                // if (cnt < 9200) continue;
+                if (cnt < 3300) continue;
 
                 var item = listData[Path.GetFileNameWithoutExtension(file)];
                 var content = File.ReadAllText(file);
@@ -220,57 +220,40 @@ namespace Pension2025.Actions
                 var i31 = sEnd.IndexOf("\n", StringComparison.CurrentCulture);
                 var i32 = sEnd.IndexOf("\n", i31 + 1, StringComparison.CurrentCulture);
                 var sEnd_FirstParagraph = "\n" + sEnd.Substring(i31 + 1, i32 - i31 - 1).Trim() + "\n";
+                var temp = sEnd_FirstParagraph;
+                var i33 = sEnd.IndexOf("\n", i32 + 1, StringComparison.CurrentCulture);
+                if (i33 > -1)
+                {
+                    var i34 = sEnd.IndexOf("\n", i33 + 1, StringComparison.CurrentCulture);
+                    if (i34 > -1)
+                    {
+                        var sEnd_SecondParagraph = sEnd.Substring(i32 + 1, i33 - i32 - 1).Trim();
+                        if (sEnd_SecondParagraph.Contains("не підлягає розголошенню") || sEnd_SecondParagraph.Contains("заборонена для загального доступу"))
+                            temp = "\n" + sEnd.Substring(i33 + 1, i34 - i33 - 1).Trim() + "\n";
+                    }
+                }
+
+
                 var keys = new List<string>();
                 foreach (var key in dResults.Keys)
                 {
-                    if (sEnd_FirstParagraph.IndexOf(key, StringComparison.CurrentCulture) != -1) keys.Add(key);
+                    if (temp.IndexOf(key, StringComparison.CurrentCulture) != -1) keys.Add(key);
                 }
 
-                if (keys.Count == 0 && sEnd.IndexOf("21.10.2024, повернути позивачу", StringComparison.CurrentCulture) != -1)
-                {
-                    keys.Add("повернути позивач");
-                }
-
-                if (keys.Count == 0 && sEnd.IndexOf("Інформація не підлягає розголошенню в загальному доступі", StringComparison.CurrentCulture) != -1)
-                {
-                    keys.Add("не підлягає розголошенню");
-                }
-                if (keys.Count == 0 && item.Id == "125960288-a53bb77137078f9817c2edf390a288ae")
+                if (keys.Count == 0 && item.Id== "127089164-7b93972c6c84d5ca415ea89356917918")
+                    keys.Add("повернути позивачу");
+                else if (keys.Count==0 && item.Id == "125960288-a53bb77137078f9817c2edf390a288ae")
                     keys.Add("Визнати протиправною");
-                else if (keys.Count == 0 && item.Id is "125783603-32f711fc53c3236862d8080526d2bd7a"
-                             or "125618089-44dc43dcefa6817fadd44df03f3e1da1"
-                             or "125513949-e5b4bcf8bd24f87d72e2367a91eba090"
-                         or "125476680-92cec21b9d5df601516a826be41e96f5"
-                         or "125305560-86a7d06bae2e6aea4dbff594ab6961d2"
-                         or "125169773-b5896446257cd06bd5a6b4d9f5f085cc"
-                         or "125108417-e7949f70cec980fbb0e6ebea0e90742c"
-                         or "125009231-80a9397753a7d855df7334d984a8caa6"
-                         or "124945109-b3edcd904451dd58c507cf0f550f37c0")
+                else if (keys.Count == 0 && item.Id == "125305560-86a7d06bae2e6aea4dbff594ab6961d2")
                     keys.Add("задовольнити частково");
-                else if (keys.Count == 0 && item.Id is "125749966-88eaf8dc903bb670d297e7ddf5c67297"
-                         or "125169800-67185f89b6fc9e3a411e60ce3b7a1c8b"
-                         or "125076074-c2cabcdc6331fc4127963ecc96f7a3b5"
-                         or "125009186-4113c5904b9ce4412595e6e9fc4c6d5c"
-                         or "124842652-1a4ee4511d1b72a99b08762f4a605b4e")
-                    keys.Add("задовольнити");
+                else if (keys.Count == 2 && item.Id == "126550493-3918a6a42c0c3b7c341f04067d00a923")
+                    keys.RemoveAt(1);
+                else if (keys.Count == 2 && keys[0] == "рийняти позовну заяву" && string.Equals(keys[1], "ідкрити провадження"))
+                    keys.RemoveAt(1);
 
                 var t1 = cnt;
                 if (keys.Count != 1 && !string.Equals(item.Id, "127308065-eae29d34b12880eaaf455b180df36537"))
                 {
-                    if (keys.Count == 2 && keys[0] == "рийняти позовну заяву" &&
-                        string.Equals(keys[1], "ідкрити провадження"))
-                    {
-
-                    }
-                    else if (string.Equals(item.Id, "126550493-3918a6a42c0c3b7c341f04067d00a923"))
-                    {
-                        keys.RemoveAt(1);
-                    }
-                    else
-                    {
-
-                    }
-
                 }
             }
 
