@@ -69,14 +69,16 @@ namespace Pension2025.Actions
                 "Суть спору, позиція сторін. Процесуальні дії та заяви сторін.",
                 "Стислий виклад доводів сторін. Процесуальні дії суду:", "проСт. 382 судовий контроль,",
                 "Суть спору, позиція сторін. Процесуальні дії суду. Заяви сторін.",
-                "ОСОБА_1 звернувся до суду з позовом:", "ОБСТАВИНИ СПРАВИ:"
+                "ОСОБА_1 звернувся до суду з позовом:", "ОБСТАВИНИ СПРАВИ:", "ВИКЛАД ОБСТАВИН:",
+                "В И К Л А Д О Б С Т А В И Н:"
             };
             var keyVstanovyv2 = new string[]
             {
                 ",В С Т А Н О В И В:", ", У С Т А Н О В И В:", ",В С Т А Н О В И В :", ", -В С Т А Н О В И В:",
                 ",встановив:", ", встановив:", ",ВСТАНОВИВ:", " діївстановив:", " В С Т А Н О В И В:",
                 " дії, постановив ухвалу.", ",ВСТАНОВИВ", ", -встановив:", " зазначенаВСТАНОВИВ:", ", ВСТАНОВИВ:",
-                " діїВСТАНОВИВ:"
+                " діїВСТАНОВИВ:", " певних дій.", " певні дії,", " певні дії.", " вчинити дії.", "НОМЕР_3 ) про",
+                " певні дії, ", " вчинити дії,", "40109058) про", " певні дії"
             };
             var keyVstanovyv3 = new[] { "Суть спору: " };
 
@@ -122,7 +124,7 @@ namespace Pension2025.Actions
             foreach (var file in files)
             {
                 cnt++;
-                if (cnt < 3300) continue;
+                if (cnt < 3800) continue;
 
                 var item = listData[Path.GetFileNameWithoutExtension(file)];
                 var content = File.ReadAllText(file);
@@ -143,95 +145,124 @@ namespace Pension2025.Actions
                 if (plainText.IndexOf("1,197", StringComparison.InvariantCulture) != -1 ||
                     plainText.IndexOf("1.197", StringComparison.InvariantCulture) != -1) item.Tag = "K";
                 if (plainText.IndexOf("адвокат", StringComparison.InvariantCultureIgnoreCase) != -1) item.Tag += "А";
+                if (plainText.IndexOf("представни", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "П";
                 if (plainText.IndexOf("військ", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "В";
                 if (!item.IsValid) item.Tag += "X";
 
                 if (!item.IsValid)
                     continue;
 
-                if (cnt == 3349)
+                if (cnt == 3357)
                 {
 
                 }
 
-                i1 = -1;
+                // Calculate index of Vstanovyv
+                var tempList = new List<(string, int)>();
                 foreach (var key in keyVstanovyv)
                 {
                     i1 = plainText.IndexOf("\t" + key + "\n", StringComparison.CurrentCulture);
                     if (i1 != -1)
                     {
+                        tempList.Add((key, i1));
                         d1[key]++;
-                        break;
                     }
                 }
-
-                if (i1 == -1)
+                foreach (var key in keyVstanovyv2)
                 {
-                    foreach (var key in keyVstanovyv2)
+                    if (key == " певних дій.")
                     {
-                        i1 = plainText.IndexOf(key + "\n", StringComparison.CurrentCulture);
-                        if (i1 != -1)
-                        {
-                            d2[key]++;
-                            break;
-                        }
+
+                    }
+                    i1 = plainText.IndexOf(key + "\n", StringComparison.CurrentCulture);
+                    if (i1 != -1)
+                    {
+                        tempList.Add((key, i1));
+                        d2[key]++;
                     }
                 }
-                if (i1 == -1)
+                foreach (var key in keyVstanovyv3)
                 {
-                    foreach (var key in keyVstanovyv3)
+                    i1 = plainText.IndexOf("\t" + key, StringComparison.CurrentCulture);
+                    if (i1 != -1)
                     {
-                        i1 = plainText.IndexOf("\t" + key, StringComparison.CurrentCulture);
-                        if (i1 != -1)
-                        {
-                            d3[key]++;
-                            break;
-                        }
+                        tempList.Add((key, i1));
+                        d3[key]++;
                     }
                 }
 
-                if (i1 == -1)
-                    throw new Exception("Check i1");
+                if (tempList.Count == 0)
+                    throw new Exception("Check 'Vstanovyv'");
+                var vstanovyvItem = tempList.OrderBy(a => a.Item2).First();
 
-
-                i2 = -1;
+                // Calculate index of Vyrishyv
+                tempList.Clear();
                 foreach (var key in keyVyrishyv)
                 {
                     i2 = plainText.IndexOf("\t" + key + "\n", i1+10, StringComparison.CurrentCulture);
                     if (i2 != -1)
                     {
+                        tempList.Add((key, i2));
                         d4[key]++;
-                        break;
                     }
                 }
-
-                if (i2 == -1)
+                foreach (var key in keyVyrishyv2)
                 {
-                    foreach (var key in keyVyrishyv2)
+                    i2 = plainText.IndexOf(key + "\n", i1 + 10, StringComparison.CurrentCulture);
+                    if (i2 != -1)
                     {
-                        i2 = plainText.IndexOf(key + "\n", i1+10, StringComparison.CurrentCulture);
-                        if (i2 != -1)
-                        {
-                            d5[key]++;
-                            break;
-                        }
+                        tempList.Add((key, i2));
+                        d5[key]++;
                     }
                 }
 
-                if (i2 == -1)
-                    throw new Exception("Check i2");
+                if (tempList.Count == 0)
+                    throw new Exception("Check 'Vyrishyv'");
+                var vyrishyvItem = tempList.OrderByDescending(a => a.Item2).First();
 
-                var sStart = plainText.Substring(0, i1);
-                ss1 = sStart.Replace("до вчинен", "")
-                    .Split(new string[] { " до ", "\tдо ", " доГоло" }, StringSplitOptions.None);
+                var sStart = plainText.Substring(0, vstanovyvItem.Item2);
+                var tempStarts = new List<string>(sStart.Replace("до вчинен", "").Replace("до пенсії", "")
+                    .Replace(" до неї", "").Replace(" до розгляду", "").Replace(" до перерахунку", "")
+                    .Replace(", до треть", "").Replace(" до вчинит", "").Replace(" до процеду", "")
+                    .Replace(" до суду за", "").Replace(" до судовог", "")
+                    .Split(
+                        new string[]
+                        {
+                            " до ", "\tдо ", ")до ", "(до ", " до: ", "\tдо: ", "доГоловн", "доВійськ", "довійсько", "до6 Державн",
+                            "до3 Державн", "доІНФОРМ", "до5 державн", "\tвідповідач: ", " ОСОБА_1 Головн", "доДержав", "доВідділ",
+                            "доУправлі", "доАварійн", "доНаціонал", "до11 державн"
+                        }, StringSplitOptions.None));
+
+                if (tempStarts.Count == 3 && item.Id is "127058897-321b015fd711e59e23869ab46a833695" or "126883284-c9ca97fc9186a8541d2c783a9d80277e"
+                    or "126813663-a4fde1835c4c5927d6b8cc706295d051" or "127306466-c4a61f4ae2d81adf53427388823f2305")
+                    tempStarts.RemoveAt(2);
+                if (tempStarts.Count == 1 && item.Id is "126989827-7d11fcea00c641b3fefcd4a422a63638"
+                    or "126989822-18cf6d35d8e40c74834fed27347af6b8" or "126989820-dc6467e172139f5f2e43a84e1db0aa98"
+                    or "126699012-ab7685344079b01b0f29456789f739a0")
+                    tempStarts = new List<string>(sStart.Split("про визнання протиправною"));
+                if (tempStarts.Count == 1 && item.Id== "127336986-112af62f28e591a42ace16d1e8f066d9")
+                    tempStarts = new List<string>(sStart.Split(", Головн"));
                 var t1 = cnt;
-                if (ss1.Length != 2)
+                if (tempStarts.Count != 2)
                 {
+                    if (tempStarts.Count == 1 && item.Id == "127265684-9e149bc6d3f2b37e2943d6aa5140a767")
+                    {
+                        // ОСОБА_1 -> Головного управління Пенсійного фонду України в Полтавській області
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "126164307-755a296773dc4e592893af3e709d7983")
+                    {
+                        // ОСОБА_1 -> Головного управління Пенсійного фонду України в Одеській області
+                    }
+                    else
+                    {
+
+                    }
 
                 }
 
+                continue;
 
-                var sEnd = plainText.Substring(i2 + 1);
+                var sEnd = plainText.Substring(vyrishyvItem.Item2 + 1);
                 var i31 = sEnd.IndexOf("\n", StringComparison.CurrentCulture);
                 var i32 = sEnd.IndexOf("\n", i31 + 1, StringComparison.CurrentCulture);
                 var sEnd_FirstParagraph = "\n" + sEnd.Substring(i31 + 1, i32 - i31 - 1).Trim() + "\n";
