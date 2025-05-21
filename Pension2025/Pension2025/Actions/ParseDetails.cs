@@ -70,7 +70,7 @@ namespace Pension2025.Actions
                 "Стислий виклад доводів сторін. Процесуальні дії суду:", "проСт. 382 судовий контроль,",
                 "Суть спору, позиція сторін. Процесуальні дії суду. Заяви сторін.",
                 "ОСОБА_1 звернувся до суду з позовом:", "ОБСТАВИНИ СПРАВИ:", "ВИКЛАД ОБСТАВИН:",
-                "В И К Л А Д О Б С Т А В И Н:"
+                "В И К Л А Д О Б С Т А В И Н:", "Позовні вимоги:"
             };
             var keyVstanovyv2 = new string[]
             {
@@ -124,7 +124,7 @@ namespace Pension2025.Actions
             foreach (var file in files)
             {
                 cnt++;
-                if (cnt < 3800) continue;
+                // if (cnt < 7200) continue;
 
                 var item = listData[Path.GetFileNameWithoutExtension(file)];
                 var content = File.ReadAllText(file);
@@ -147,10 +147,13 @@ namespace Pension2025.Actions
                 if (plainText.IndexOf("адвокат", StringComparison.InvariantCultureIgnoreCase) != -1) item.Tag += "А";
                 if (plainText.IndexOf("представни", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "П";
                 if (plainText.IndexOf("військ", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "В";
+                if (plainText.IndexOf("анастас", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "Н";
                 if (!item.IsValid) item.Tag += "X";
 
                 if (!item.IsValid)
                     continue;
+
+                // if (item.CourtType!= ListItem.CourtTypeEnum.Okrujnyy) continue;
 
                 if (cnt == 3357)
                 {
@@ -221,20 +224,67 @@ namespace Pension2025.Actions
                 var vyrishyvItem = tempList.OrderByDescending(a => a.Item2).First();
 
                 var sStart = plainText.Substring(0, vstanovyvItem.Item2);
+
+                /*var tempZaPozovom = new[]
+                {
+                    " за позовом", "\tза позовом", " за позовною заявою", " позовну заяву",
+                    " адміністративний позов", " за адміністративним позовом",
+                    " позовної заяви", "адміністративного позову", "адміністративну справу за ОСОБА_1"
+                    // " апеляційну скаргу", "за її позовом", "адміністративну справу за ОСОБА_1"
+                };
+                tempList.Clear();
+                foreach (var s in tempZaPozovom)
+                {
+                    i1 = sStart.IndexOf(s, StringComparison.InvariantCulture);
+                    if (i1!=-1)
+                        tempList.Add((s, i1));
+                }
+
+                var t2 = cnt;
+                if (tempList.Count != 1)
+                {
+
+                }
+
+                continue;
+
+                var tempList2 = tempList.OrderBy(a => a.Item2).ToList();
+                if (tempList2.Count > 0 &&
+                    tempList2[0].Item1.IndexOf("апел", StringComparison.InvariantCultureIgnoreCase) != -1)
+                {
+                    if (tempList2.Count != 2)
+                    {
+
+                    }
+                }
+                else if (tempList2.Count != 1)
+                {
+
+                }
+                continue;*/
+
                 var tempStarts = new List<string>(sStart.Replace("до вчинен", "").Replace("до пенсії", "")
                     .Replace(" до неї", "").Replace(" до розгляду", "").Replace(" до перерахунку", "")
                     .Replace(", до треть", "").Replace(" до вчинит", "").Replace(" до процеду", "")
-                    .Replace(" до суду за", "").Replace(" до судовог", "")
+                    .Replace(" до суду за", "").Replace(" до суду із", "").Replace(" до судовог", "")
+                    .Replace("прийняття до провадження", "").Replace(" до пункту", "").Replace("2016 до", "")
+                    .Replace("2018 до", "").Replace(" до постанови", "").Replace("додані до нього", "")
+                    .Replace("до суду в ", "").Replace("до їх вчинення", "")
                     .Split(
                         new string[]
                         {
-                            " до ", "\tдо ", ")до ", "(до ", " до: ", "\tдо: ", "доГоловн", "доВійськ", "довійсько", "до6 Державн",
+                            " до ", "\tдо ", ")до ", "(до ", " до: ", "\tдо:", "доГоловн", "доВійськ", "довійсько", "до6 Державн",
                             "до3 Державн", "доІНФОРМ", "до5 державн", "\tвідповідач: ", " ОСОБА_1 Головн", "доДержав", "доВідділ",
-                            "доУправлі", "доАварійн", "доНаціонал", "до11 державн"
+                            "доУправлі", "доАварійн", "доНаціонал", "до11 державн", "доАдміністр", "доРегіонал", "дофінансового",
+                            "\tвідповідач-1:", "доФінансов"
+                            // " та Головного"
                         }, StringSplitOptions.None));
 
                 if (tempStarts.Count == 3 && item.Id is "127058897-321b015fd711e59e23869ab46a833695" or "126883284-c9ca97fc9186a8541d2c783a9d80277e"
-                    or "126813663-a4fde1835c4c5927d6b8cc706295d051" or "127306466-c4a61f4ae2d81adf53427388823f2305")
+                    or "126813663-a4fde1835c4c5927d6b8cc706295d051" or "127306466-c4a61f4ae2d81adf53427388823f2305"
+                    or "127261999-3effb13192bfea318362274962156191" or "127229351-ba4243fa8ca98b53151f6378c34d9e4e"
+                    or "125140084-adccdd9564e7f8f6ec8ef8043af9d9a0" or "125075258-bbb4f4c7cd22b14d1354c609aae10371"
+                    or "125237476-c4873428719dba5a2588cd9db7f734a7" or "124878193-1dc7992ec9fd8effc5221940b251755c")
                     tempStarts.RemoveAt(2);
                 if (tempStarts.Count == 1 && item.Id is "126989827-7d11fcea00c641b3fefcd4a422a63638"
                     or "126989822-18cf6d35d8e40c74834fed27347af6b8" or "126989820-dc6467e172139f5f2e43a84e1db0aa98"
@@ -253,9 +303,50 @@ namespace Pension2025.Actions
                     {
                         // ОСОБА_1 -> Головного управління Пенсійного фонду України в Одеській області
                     }
+                    else if (tempStarts.Count == 1 && item.Id == "125650514-89e14e53e91384c693c3c55f4457b90b")
+                    {
+                        // ОСОБА_1 -> Військової частини НОМЕР_1
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "125530211-5fb734fc202756c2085b9a374489f4dd")
+                    {
+                        // ОСОБА_1 -> Головного управління Національної поліції у Львівській області
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "125533771-0745746c7ce666a85d02dde464d262eb")
+                    {
+                        // ОСОБА_1 -> Державного пожежно-рятувального загону Головного управління Державної служби України з надзвичайних ситуацій у Дніпропетровській області
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "125507443-fa8df4626221de22bec5c9b1d3aa6a40")
+                    {
+                        // ОСОБА_1 -> ІНФОРМАЦІЯ_1 (військова частина НОМЕР_2 )
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "125476346-3127b8125a9da89fcdcb3f3ff292cd21")
+                    {
+                        // ОСОБА_1 -> Головного управління Пенсійного фонду України в Одеській області
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "125507962-f26c9a212692be5341863d6fc370e43d")
+                    {
+                        // ОСОБА_1 -> Головного управління Пенсійного фонду України в м. Києві
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "127339593-1da822bee6696da10e04c549fe6826a0")
+                    {
+                        // ОСОБА_1 -> Головного управління Пенсійного фонду України в Черкаській області
+                    }
+                    else if (tempStarts.Count == 1 && item.Id == "125008358-d9cfad96766968e07a292712f3432679")
+                    {
+                        // ОСОБА_1 -> ІНФОРМАЦІЯ_1 (військова частина НОМЕР_1 )
+                    }
+                    else if (tempStarts.Count == 1 && item.Id is "124978362-b72f7cfb8d48f84d06191d2c12af6171"
+                             or "127164466-56e499a40a0465220e39b6cdf4aaf9c4")
+                    {
+                        // ОСОБА_1 -> Головного управління Пенсійного фонду України у Львівській області
+                    }
+                    else if (item.Id == "127165271-9f92cb05b61cbcceefae353ea31afa1d")
+                    {
+                        // ОСОБА_1 -> Інформація не підлягає розголошенню
+                    }
                     else
                     {
-
+                        //Інформація не підлягає розголошенню
                     }
 
                 }
