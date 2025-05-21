@@ -124,7 +124,7 @@ namespace Pension2025.Actions
             foreach (var file in files)
             {
                 cnt++;
-                if (cnt < 100) continue;
+                // if (cnt < 8300) continue;
 
                 var item = listData[Path.GetFileNameWithoutExtension(file)];
                 var content = File.ReadAllText(file);
@@ -152,13 +152,6 @@ namespace Pension2025.Actions
 
                 if (!item.IsValid)
                     continue;
-
-                // if (item.CourtType!= ListItem.CourtTypeEnum.Okrujnyy) continue;
-
-                if (cnt == 3357)
-                {
-
-                }
 
                 // Calculate index of Vstanovyv
                 var tempList = new List<(string, int)>();
@@ -225,44 +218,6 @@ namespace Pension2025.Actions
 
                 var sStart = plainText.Substring(0, vstanovyvItem.Item2);
 
-                /*var tempZaPozovom = new[]
-                {
-                    " за позовом", "\tза позовом", " за позовною заявою", " позовну заяву",
-                    " адміністративний позов", " за адміністративним позовом",
-                    " позовної заяви", "адміністративного позову", "адміністративну справу за ОСОБА_1"
-                    // " апеляційну скаргу", "за її позовом", "адміністративну справу за ОСОБА_1"
-                };
-                tempList.Clear();
-                foreach (var s in tempZaPozovom)
-                {
-                    i1 = sStart.IndexOf(s, StringComparison.InvariantCulture);
-                    if (i1!=-1)
-                        tempList.Add((s, i1));
-                }
-
-                var t2 = cnt;
-                if (tempList.Count != 1)
-                {
-
-                }
-
-                continue;
-
-                var tempList2 = tempList.OrderBy(a => a.Item2).ToList();
-                if (tempList2.Count > 0 &&
-                    tempList2[0].Item1.IndexOf("апел", StringComparison.InvariantCultureIgnoreCase) != -1)
-                {
-                    if (tempList2.Count != 2)
-                    {
-
-                    }
-                }
-                else if (tempList2.Count != 1)
-                {
-
-                }
-                continue;*/
-
                 var tempStarts = new List<string>(sStart.Replace("до вчинен", "").Replace("до пенсії", "")
                     .Replace(" до неї", "").Replace(" до розгляду", "").Replace(" до перерахунку", "")
                     .Replace(", до треть", "").Replace(" до вчинит", "").Replace(" до процеду", "")
@@ -277,7 +232,6 @@ namespace Pension2025.Actions
                             "до3 Державн", "доІНФОР", "до5 державн", "\tвідповідач: ", " ОСОБА_1 Головн", "доДержав", "доВідділ",
                             "доУправлі", "доАварійн", "доНаціонал", "до11 державн", "доАдміністр", "доРегіонал", "дофінансового",
                             "\tвідповідач-1:", "доФінансов"
-                            // " та Головного"
                         }, StringSplitOptions.None));
 
                 if (tempStarts.Count == 3 && item.Id is "126813663-a4fde1835c4c5927d6b8cc706295d051" or "127306466-c4a61f4ae2d81adf53427388823f2305"
@@ -285,21 +239,11 @@ namespace Pension2025.Actions
                         or "125140084-adccdd9564e7f8f6ec8ef8043af9d9a0" or "125075258-bbb4f4c7cd22b14d1354c609aae10371"
                         or "125237476-c4873428719dba5a2588cd9db7f734a7" or "124878193-1dc7992ec9fd8effc5221940b251755c")
                 {
-                    if (item.CourtType != ListItem.CourtTypeEnum.Okrujnyy)
-                    {
-
-                    }
                     tempStarts.RemoveAt(2);
                 }
 
                 if (tempStarts.Count == 3 && item.Id is "127058897-321b015fd711e59e23869ab46a833695" or "126883284-c9ca97fc9186a8541d2c783a9d80277e")
-                {
-                    if (item.CourtType != ListItem.CourtTypeEnum.Apelyacia)
-                    {
-
-                    }
                     tempStarts.RemoveAt(0);
-                }
 
                 if (tempStarts.Count == 1 && item.Id is "126989827-7d11fcea00c641b3fefcd4a422a63638"
                         or "126989822-18cf6d35d8e40c74834fed27347af6b8" or "126989820-dc6467e172139f5f2e43a84e1db0aa98"
@@ -313,56 +257,79 @@ namespace Pension2025.Actions
                 {
                     if (tempStarts.Count == 1 && item.Id == "127265684-9e149bc6d3f2b37e2943d6aa5140a767")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ПФУ";
                         // ОСОБА_1 -> Головного управління Пенсійного фонду України в Полтавській області
                     }
                     else if (tempStarts.Count == 1 && item.Id == "126164307-755a296773dc4e592893af3e709d7983")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ПФУ";
                         // ОСОБА_1 -> Головного управління Пенсійного фонду України в Одеській області
                     }
                     else if (tempStarts.Count == 1 && item.Id == "125650514-89e14e53e91384c693c3c55f4457b90b")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ЗСУ";
                         // ОСОБА_1 -> Військової частини НОМЕР_1
                     }
                     else if (tempStarts.Count == 1 && item.Id == "125530211-5fb734fc202756c2085b9a374489f4dd")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "МВС";
                         // ОСОБА_1 -> Головного управління Національної поліції у Львівській області
                     }
                     else if (tempStarts.Count == 1 && item.Id == "125533771-0745746c7ce666a85d02dde464d262eb")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ДСНС";
                         // ОСОБА_1 -> Державного пожежно-рятувального загону Головного управління Державної служби України з надзвичайних ситуацій у Дніпропетровській області
                     }
                     else if (tempStarts.Count == 1 && item.Id == "125507443-fa8df4626221de22bec5c9b1d3aa6a40")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ІНФОРМАЦІЯ";
                         // ОСОБА_1 -> ІНФОРМАЦІЯ_1 (військова частина НОМЕР_2 )
                     }
                     else if (tempStarts.Count == 1 && item.Id == "125476346-3127b8125a9da89fcdcb3f3ff292cd21")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ПФУ";
                         // ОСОБА_1 -> Головного управління Пенсійного фонду України в Одеській області
                     }
                     else if (tempStarts.Count == 1 && item.Id == "125507962-f26c9a212692be5341863d6fc370e43d")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ПФУ";
                         // ОСОБА_1 -> Головного управління Пенсійного фонду України в м. Києві
                     }
                     else if (tempStarts.Count == 1 && item.Id == "127339593-1da822bee6696da10e04c549fe6826a0")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ПФУ";
                         // ОСОБА_1 -> Головного управління Пенсійного фонду України в Черкаській області
                     }
                     else if (tempStarts.Count == 1 && item.Id == "125008358-d9cfad96766968e07a292712f3432679")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ІНФОРМАЦІЯ";
                         // ОСОБА_1 -> ІНФОРМАЦІЯ_1 (військова частина НОМЕР_1 )
                     }
                     else if (tempStarts.Count == 1 && item.Id is "124978362-b72f7cfb8d48f84d06191d2c12af6171"
                              or "127164466-56e499a40a0465220e39b6cdf4aaf9c4")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ПФУ";
                         // ОСОБА_1 -> Головного управління Пенсійного фонду України у Львівській області
                     }
                     else if (item.Id == "127165271-9f92cb05b61cbcceefae353ea31afa1d")
                     {
+                        item.From = "ОСОБА";
+                        item.To = "ІНФОРМАЦІЯ";
                         // ОСОБА_1 -> Інформація не підлягає розголошенню
                     }
                     else
                     {
-                        //Інформація не підлягає розголошенню
                     }
 
                 }
@@ -374,11 +341,23 @@ namespace Pension2025.Actions
                     // To
                     var toList = new Dictionary<string, string>
                     {
-                        { " управління Пенсійного фонду", "ПФУ" }, { "го управління Пенсійного Фонду", "ПФУ" },
-                        { "МАЦІЯ_1", "ІНФОРМАЦІЯ_1" },/* { " з надзвичайних ситуацій", "ДСНС" },*/
-                        { "ькова частин", "Військ" }, { "ькової частин", "Військ" }, {"Державної установ", "Держстанова"},
+                        { "правління Пенсійного фонд", "ПФУ" }, { "правління Пенсійного Фонд", "ПФУ" }, {"правління пенсійного фонд","ПФУ"}, {" ПФУ ", "ПФУ"},
+                        { "МАЦІЯ_", "ІНФОРМАЦІЯ" }, {"НОМЕР_", "НОМЕР"},
+                        { "ькова частин", "ЗСУ" }, { "ькової частин", "ЗСУ" }, {"Державної установ", "Держстанова"},
                         {"аціонального університет", "Нацуніверситет"}, {"лужби безпеки Украї","СБУ"}, {"ержавної служб", "Держслужби"},
-                        {"прикордонної служб", "ДПСУ"}, {"іністерства оборони", "МО"}
+                        {"прикордонної служб", "ДПСУ"}, {"іністерства оборони", "МО"}, {"примусового виконання рішень", "Виконавча"},
+                        {"Збройних Сил", "ЗСУ"}, {"Збройних сил", "ЗСУ"}, {"аціональної поліці", "МВС"}, {"іністерства юстиці", "Мінюст"},
+                        {"ійськового інститут", "ЗСУ"}, {"ійськової академі", "ЗСУ"}, {"аціональної академії сухопутн", "ЗСУ"}, {"аціональної Академії Сухопу", "ЗСУ"},
+                        {"ьково-медичног","ЗСУ"}, {"ністерства внутрішніх спр", "МВС"}, {" ДСНС ", "ДСНС"}, {"ержавної охоро", "Держохорона"},
+                        {" МВС ", "МВС"}, {"адзвичайних ситуаці", "ДСНС"}, {"вартирно-експлуатаційн", "КЕВ"},
+                        {" ДПС ", "ДПС"}, {"лужби зовнішньої розвід","СЗР"}, {"ерспецзв`язк", "СпецЗв'язок"}, {"акетних військ", "ЗСУ"},
+                        {"аціональної гварді", "Нацгвардія"}, {"ійськового ліце", "ЗСУ"}, {"ійськово-морського ліц", "ЗСУ"},
+                        {"ержавного університет", "Держуніверситет"}, {"ивільного захист", "ДСНС"}, {"нформаційного агентств", "Інформагентство"},
+                        {"иправна колоні", "Колонія"}, {"ніверситету оборо", "ЗСУ"}, {" ДФС ", "ДФС"}, {"портивного клуб", "Спортклуб"},
+                        {"ьково-медичної академі", "ЗСУ"}, {"кадемія сухопутн", "ЗСУ"}, {"римінально-виконавчої служ", "Виконавча"},
+                        {"лідчий ізолятор", "Колонія"}, {"епартаменту внутрішньої безпеки", "ВнутрБезпека"}, {"Кабінету Міністрів Україн", "Кабмін"},
+                        {"енітенціарної академ", "Колонія"}, {" ГСЦ МВ", "МВС"}, {"ніверситету Повітряних Сил", "ЗСУ"}, {" повітряних сил", "ЗСУ"},
+                        {"ніверситета оборон", "ЗСУ"}
                     };
                     var tempList1 = new List<(string, int)>();
                     foreach (var kvp in toList)
@@ -390,8 +369,7 @@ namespace Pension2025.Actions
 
                     if (tempList1.Count >0)
                     {
-                        var x1 = item;
-                        item.To = tempList1.OrderBy(a => a.Item2).First().Item1;
+                        item.To = toList[tempList1.OrderBy(a => a.Item2).First().Item1];
                     }
                     else
                     {
@@ -415,7 +393,7 @@ namespace Pension2025.Actions
 
                     if (sStart.IndexOf(" ОСОБА_1 Головн", StringComparison.InvariantCulture) != -1)
                     {
-                        if (tempList1.Count == 0) item.From = "ОСОБА_1";
+                        if (tempList1.Count == 0) item.From = "ОСОБА";
                         else
                         {
 
@@ -424,11 +402,7 @@ namespace Pension2025.Actions
                     else if (tempList1.Count >0)
                     {
                         var x1 = item;
-                        item.From = tempList1.OrderByDescending(a => a.Item2).First().Item1;
-                        if (tempList1.Count > 1 && item.CourtType!= ListItem.CourtTypeEnum.Apelyacia)
-                        {
-
-                        }
+                        item.From = fromList[tempList1.OrderByDescending(a => a.Item2).First().Item1];
                     }
                     else
                     {
@@ -436,7 +410,7 @@ namespace Pension2025.Actions
                     }
                 }
 
-                continue;
+                // continue;
 
                 var sEnd = plainText.Substring(vyrishyvItem.Item2 + 1);
                 var i31 = sEnd.IndexOf("\n", StringComparison.CurrentCulture);
@@ -472,8 +446,12 @@ namespace Pension2025.Actions
                     keys.RemoveAt(1);
                 else if (keys.Count == 2 && keys[0] == "рийняти позовну заяву" && string.Equals(keys[1], "ідкрити провадження"))
                     keys.RemoveAt(1);
+                else if (keys.Count == 2 && item.Id == "127308065-eae29d34b12880eaaf455b180df36537")
+                    keys.RemoveAt(1);
 
-                if (keys.Count != 1 && !string.Equals(item.Id, "127308065-eae29d34b12880eaaf455b180df36537"))
+                if (keys.Count == 1)
+                    item.Result = keys[0];
+                else
                 {
                 }
             }

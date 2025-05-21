@@ -11,7 +11,7 @@ namespace Pension2025.Models
 
         #region ======  Static  =======
         public const string ListFileHeader = "Url\tResultKind\tSubListUrl\tNo\tType\tCourt\tJudge\tDate";
-        public const string ExtendedListFileHeader = "Tag\tUrl\tResultKind\tSubListUrl\tNo\tType\tCourt\tJudge\tDate";
+        public const string ExtendedListFileHeader = "Result\tFrom\tTo\tTag\tUrl\tResultKind\tSubListUrl\tNo\tType\tCourt\tJudge\tDate";
         public static ListItem ParseFromHtml(string html, string parentFileName)
         {
             var i1 = html.IndexOf("text-body-tertiary", StringComparison.InvariantCulture);
@@ -109,8 +109,10 @@ namespace Pension2025.Models
 
         public string From { get; set; }
         public string To { get; set; }
+        public string Result { get; set; }
+
         public string ToListString() => $"{Url}\t{ResultKind}\t{SubListUrl}\t{No}\t{Type}\t{Court}\t{Judge}\t{Date:yyyy-MM-dd}";
-        public string ToExtendedListString() => $"{Tag}\t{ToListString()}";
+        public string ToExtendedListString() => $"{Result}\t{From}\t{To}\t{Tag}\t{ToListString()}";
 
         public override string ToString() => $"{ResultKind}\t{Type}\t{Court}\t{Tag}";
 
