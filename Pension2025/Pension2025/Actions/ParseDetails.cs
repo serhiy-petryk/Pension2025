@@ -115,16 +115,13 @@ namespace Pension2025.Actions
 
             var listData = ListItem.GetListFromFile(Settings.ListFileName);
             var cnt = 0;
-            var cnt1 = 0;
-            var cnt2 = 0;
-            var cntArmy = 0;
-            var cntInvalid = 0;
             var folder = Path.Combine(Settings.DataFolder, "Details");
             var files = Directory.GetFiles(folder, "*.html").OrderBy(File.GetLastWriteTime).ToArray();
             foreach (var file in files)
             {
                 cnt++;
                 // if (cnt < 8300) continue;
+                // if (!file.Contains("127340774-9027de709174fa075e5f0aafe3b722f6")) continue;
 
                 var item = listData[Path.GetFileNameWithoutExtension(file)];
                 var content = File.ReadAllText(file);
@@ -338,7 +335,9 @@ namespace Pension2025.Actions
                     var t2 = cnt;
                     var sStart1 = sStart;
 
-                    // To
+                    // =================
+                    // To define the 'To'
+                    // =================
                     var toList = new Dictionary<string, string>
                     {
                         { "правління Пенсійного фонд", "ПФУ" }, { "правління Пенсійного Фонд", "ПФУ" }, {"правління пенсійного фонд","ПФУ"}, {" ПФУ ", "ПФУ"},
@@ -376,7 +375,9 @@ namespace Pension2025.Actions
 
                     }
 
-                    // From
+                    // =================
+                    // To define the 'To'
+                    // =================
                     var fromList = new Dictionary<string, string>
                     {
                         { "ОСОБА_1", "ОСОБА" }, { "Головного управління Пенсійного фонду", "ПФУ" },
@@ -386,7 +387,7 @@ namespace Pension2025.Actions
                     tempList1.Clear();
                     foreach (var kvp in fromList)
                     {
-                        i1 = tempStarts[0].IndexOf(kvp.Key, StringComparison.InvariantCulture);
+                        i1 = tempStarts[0].LastIndexOf(kvp.Key, StringComparison.InvariantCulture);
                         if (i1!=-1)
                             tempList1.Add((kvp.Key, i1));
                     }
@@ -410,8 +411,14 @@ namespace Pension2025.Actions
                     }
                 }
 
-                // continue;
+                if (item.From == item.To)
+                {
 
+                }
+
+                // ====================
+                // To define the result
+                // ====================
                 var sEnd = plainText.Substring(vyrishyvItem.Item2 + 1);
                 var i31 = sEnd.IndexOf("\n", StringComparison.CurrentCulture);
                 var i32 = sEnd.IndexOf("\n", i31 + 1, StringComparison.CurrentCulture);
@@ -460,8 +467,6 @@ namespace Pension2025.Actions
             printData.Add(ListItem.ExtendedListFileHeader);
             printData.AddRange(listData.Select(a => a.Value.ToExtendedListString()));
             File.WriteAllLines(Settings.ExtendedListFileName, printData);
-
-            Debug.Print($"Cnt: {cnt}/{cnt1}");
 
             foreach (var kvp in d1)
                 Debug.Print($"D1:\t{kvp.Key}\t{kvp.Value}");
