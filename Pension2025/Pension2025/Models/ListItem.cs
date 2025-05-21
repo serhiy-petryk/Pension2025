@@ -107,6 +107,8 @@ namespace Pension2025.Models
                 ? CourtTypeEnum.Apelyacia
                 : (Court.Contains("асаці") ? CourtTypeEnum.Kasacia : CourtTypeEnum.Other));
 
+        public string From { get; set; }
+        public string To { get; set; }
         public string ToListString() => $"{Url}\t{ResultKind}\t{SubListUrl}\t{No}\t{Type}\t{Court}\t{Judge}\t{Date:yyyy-MM-dd}";
         public string ToExtendedListString() => $"{Tag}\t{ToListString()}";
 

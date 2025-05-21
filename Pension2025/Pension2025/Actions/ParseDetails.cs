@@ -124,7 +124,7 @@ namespace Pension2025.Actions
             foreach (var file in files)
             {
                 cnt++;
-                // if (cnt < 7200) continue;
+                if (cnt < 100) continue;
 
                 var item = listData[Path.GetFileNameWithoutExtension(file)];
                 var content = File.ReadAllText(file);
@@ -147,7 +147,7 @@ namespace Pension2025.Actions
                 if (plainText.IndexOf("адвокат", StringComparison.InvariantCultureIgnoreCase) != -1) item.Tag += "А";
                 if (plainText.IndexOf("представни", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "П";
                 if (plainText.IndexOf("військ", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "В";
-                if (plainText.IndexOf("анастас", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "Н";
+                // no items: if (plainText.IndexOf("анастас", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "Н";
                 if (!item.IsValid) item.Tag += "X";
 
                 if (!item.IsValid)
@@ -273,25 +273,41 @@ namespace Pension2025.Actions
                     .Split(
                         new string[]
                         {
-                            " до ", "\tдо ", ")до ", "(до ", " до: ", "\tдо:", "доГоловн", "доВійськ", "довійсько", "до6 Державн",
-                            "до3 Державн", "доІНФОРМ", "до5 державн", "\tвідповідач: ", " ОСОБА_1 Головн", "доДержав", "доВідділ",
+                            " до ", "\tдо ", ")до ", "(до ", " до: ", "\tдо:", "доГоловн", "доВійс", "довійс", "до6 Державн",
+                            "до3 Державн", "доІНФОР", "до5 державн", "\tвідповідач: ", " ОСОБА_1 Головн", "доДержав", "доВідділ",
                             "доУправлі", "доАварійн", "доНаціонал", "до11 державн", "доАдміністр", "доРегіонал", "дофінансового",
                             "\tвідповідач-1:", "доФінансов"
                             // " та Головного"
                         }, StringSplitOptions.None));
 
-                if (tempStarts.Count == 3 && item.Id is "127058897-321b015fd711e59e23869ab46a833695" or "126883284-c9ca97fc9186a8541d2c783a9d80277e"
-                    or "126813663-a4fde1835c4c5927d6b8cc706295d051" or "127306466-c4a61f4ae2d81adf53427388823f2305"
-                    or "127261999-3effb13192bfea318362274962156191" or "127229351-ba4243fa8ca98b53151f6378c34d9e4e"
-                    or "125140084-adccdd9564e7f8f6ec8ef8043af9d9a0" or "125075258-bbb4f4c7cd22b14d1354c609aae10371"
-                    or "125237476-c4873428719dba5a2588cd9db7f734a7" or "124878193-1dc7992ec9fd8effc5221940b251755c")
+                if (tempStarts.Count == 3 && item.Id is "126813663-a4fde1835c4c5927d6b8cc706295d051" or "127306466-c4a61f4ae2d81adf53427388823f2305"
+                        or "127261999-3effb13192bfea318362274962156191" or "127229351-ba4243fa8ca98b53151f6378c34d9e4e"
+                        or "125140084-adccdd9564e7f8f6ec8ef8043af9d9a0" or "125075258-bbb4f4c7cd22b14d1354c609aae10371"
+                        or "125237476-c4873428719dba5a2588cd9db7f734a7" or "124878193-1dc7992ec9fd8effc5221940b251755c")
+                {
+                    if (item.CourtType != ListItem.CourtTypeEnum.Okrujnyy)
+                    {
+
+                    }
                     tempStarts.RemoveAt(2);
+                }
+
+                if (tempStarts.Count == 3 && item.Id is "127058897-321b015fd711e59e23869ab46a833695" or "126883284-c9ca97fc9186a8541d2c783a9d80277e")
+                {
+                    if (item.CourtType != ListItem.CourtTypeEnum.Apelyacia)
+                    {
+
+                    }
+                    tempStarts.RemoveAt(0);
+                }
+
                 if (tempStarts.Count == 1 && item.Id is "126989827-7d11fcea00c641b3fefcd4a422a63638"
-                    or "126989822-18cf6d35d8e40c74834fed27347af6b8" or "126989820-dc6467e172139f5f2e43a84e1db0aa98"
-                    or "126699012-ab7685344079b01b0f29456789f739a0")
+                        or "126989822-18cf6d35d8e40c74834fed27347af6b8" or "126989820-dc6467e172139f5f2e43a84e1db0aa98"
+                        or "126699012-ab7685344079b01b0f29456789f739a0")
                     tempStarts = new List<string>(sStart.Split("про визнання протиправною"));
                 if (tempStarts.Count == 1 && item.Id== "127336986-112af62f28e591a42ace16d1e8f066d9")
                     tempStarts = new List<string>(sStart.Split(", Головн"));
+
                 var t1 = cnt;
                 if (tempStarts.Count != 2)
                 {
@@ -349,6 +365,75 @@ namespace Pension2025.Actions
                         //Інформація не підлягає розголошенню
                     }
 
+                }
+                else
+                {
+                    var t2 = cnt;
+                    var sStart1 = sStart;
+
+                    // To
+                    var toList = new Dictionary<string, string>
+                    {
+                        { " управління Пенсійного фонду", "ПФУ" }, { "го управління Пенсійного Фонду", "ПФУ" },
+                        { "МАЦІЯ_1", "ІНФОРМАЦІЯ_1" },/* { " з надзвичайних ситуацій", "ДСНС" },*/
+                        { "ькова частин", "Військ" }, { "ькової частин", "Військ" }, {"Державної установ", "Держстанова"},
+                        {"аціонального університет", "Нацуніверситет"}, {"лужби безпеки Украї","СБУ"}, {"ержавної служб", "Держслужби"},
+                        {"прикордонної служб", "ДПСУ"}, {"іністерства оборони", "МО"}
+                    };
+                    var tempList1 = new List<(string, int)>();
+                    foreach (var kvp in toList)
+                    {
+                        i1 = tempStarts[1].IndexOf(kvp.Key, StringComparison.InvariantCulture);
+                        if (i1 != -1)
+                            tempList1.Add((kvp.Key, i1));
+                    }
+
+                    if (tempList1.Count >0)
+                    {
+                        var x1 = item;
+                        item.To = tempList1.OrderBy(a => a.Item2).First().Item1;
+                    }
+                    else
+                    {
+
+                    }
+
+                    // From
+                    var fromList = new Dictionary<string, string>
+                    {
+                        { "ОСОБА_1", "ОСОБА" }, { "Головного управління Пенсійного фонду", "ПФУ" },
+                        { "за позовом Державної установи", "Держустанова" }, { "Головного управління ПФУ", "ПФУ" },
+                        { "Приватного акціонерного товариств", "Приватне підприємство" }
+                    };
+                    tempList1.Clear();
+                    foreach (var kvp in fromList)
+                    {
+                        i1 = tempStarts[0].IndexOf(kvp.Key, StringComparison.InvariantCulture);
+                        if (i1!=-1)
+                            tempList1.Add((kvp.Key, i1));
+                    }
+
+                    if (sStart.IndexOf(" ОСОБА_1 Головн", StringComparison.InvariantCulture) != -1)
+                    {
+                        if (tempList1.Count == 0) item.From = "ОСОБА_1";
+                        else
+                        {
+
+                        }
+                    }
+                    else if (tempList1.Count >0)
+                    {
+                        var x1 = item;
+                        item.From = tempList1.OrderByDescending(a => a.Item2).First().Item1;
+                        if (tempList1.Count > 1 && item.CourtType!= ListItem.CourtTypeEnum.Apelyacia)
+                        {
+
+                        }
+                    }
+                    else
+                    {
+
+                    }
                 }
 
                 continue;
