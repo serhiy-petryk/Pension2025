@@ -140,12 +140,12 @@ namespace Pension2025.Actions
                     .Replace("\n\t\u007f\n\t", "\n\t");
 
                 if (plainText.IndexOf("1,197", StringComparison.InvariantCulture) != -1 ||
-                    plainText.IndexOf("1.197", StringComparison.InvariantCulture) != -1) item.Tag = "K";
+                    plainText.IndexOf("1.197", StringComparison.InvariantCulture) != -1) item.Tag = "К";
                 if (plainText.IndexOf("адвокат", StringComparison.InvariantCultureIgnoreCase) != -1) item.Tag += "А";
                 if (plainText.IndexOf("представни", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "П";
                 if (plainText.IndexOf("військ", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "В";
                 // no items: if (plainText.IndexOf("анастас", StringComparison.CurrentCultureIgnoreCase) != -1) item.Tag += "Н";
-                if (!item.IsValid) item.Tag += "X";
+                if (!item.IsValid) item.Tag += "Х";
 
                 if (!item.IsValid)
                     continue;
