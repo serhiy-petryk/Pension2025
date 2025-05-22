@@ -120,8 +120,8 @@ namespace Pension2025.Actions
             foreach (var file in files)
             {
                 cnt++;
-                // if (cnt < 8300) continue;
-                // if (!file.Contains("127340774-9027de709174fa075e5f0aafe3b722f6")) continue;
+
+                // if (cnt < 100) continue;
 
                 var item = listData[Path.GetFileNameWithoutExtension(file)];
                 var content = File.ReadAllText(file);
@@ -149,6 +149,12 @@ namespace Pension2025.Actions
 
                 if (!item.IsValid)
                     continue;
+
+                var s21 = GetAdvokat(plainText, "адвокат");
+                var s22 = GetAdvokat(plainText, "представни");
+                var s23 = (s21 + " " + s22).Trim();
+                if (!string.IsNullOrEmpty(s23))
+                    item.Advokat = s23;
 
                 // Calculate index of Vstanovyv
                 var tempList = new List<(string, int)>();
@@ -457,7 +463,7 @@ namespace Pension2025.Actions
                     keys.RemoveAt(1);
 
                 if (keys.Count == 1)
-                    item.Result = keys[0];
+                    item.Result = keys[0].Trim();
                 else
                 {
                 }
@@ -489,6 +495,34 @@ namespace Pension2025.Actions
                 }
 
                 return sourceText;
+            }
+
+            static string GetAdvokat(string text, string searchString)
+            {
+                var list = new List<string>();
+                var i1 = text.IndexOf(searchString, StringComparison.InvariantCulture);
+                while (i1 != -1)
+                {
+                    var i2 = text.IndexOf(' ', i1 + 5);
+                    if (i2 == -1)
+                        break;
+                    var i3 = text.IndexOf(' ', i2+1);
+                    if (i3 == -1)
+                        break;
+                    var firstWord = text.Substring(i1, i2 - i1).Trim();
+                    var b1 = char.IsLetter(firstWord.ToCharArray()[3]);
+                    var secondWord = text.Substring(i2 + 1, i3 - i2 - 1).Trim();
+                    if (char.IsLetter(firstWord[firstWord.Length - 1]) && char.IsUpper(secondWord[0]))
+                        list.Add(secondWord);
+
+                    i1 = text.IndexOf(searchString, i1+1, StringComparison.InvariantCulture);
+                }
+
+                if (list.Count > 0 && list[0].StartsWith("Котл"))
+                {
+
+                }
+                return list.Count == 0 ? null : list[0];
             }
         }
     }
