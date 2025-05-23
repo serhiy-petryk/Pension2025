@@ -425,6 +425,11 @@ namespace Pension2025.Actions
                 // To define the result
                 // ====================
                 var sEnd = plainText.Substring(vyrishyvItem.Item2 + 1);
+                if (sEnd.IndexOf("максимальн", StringComparison.InvariantCultureIgnoreCase) != -1)
+                    item.Tag += "М";
+                else if (plainText.IndexOf("максимальн", StringComparison.InvariantCultureIgnoreCase) != -1)
+                    item.Tag += "Л";
+
                 var i31 = sEnd.IndexOf("\n", StringComparison.CurrentCulture);
                 var i32 = sEnd.IndexOf("\n", i31 + 1, StringComparison.CurrentCulture);
                 var sEnd_FirstParagraph = "\n" + sEnd.Substring(i31 + 1, i32 - i31 - 1).Trim() + "\n";
@@ -470,7 +475,8 @@ namespace Pension2025.Actions
 
             var printData = new List<string>();
             printData.Add(ListItem.ExtendedListFileHeader);
-            printData.AddRange(listData.Select(a => a.Value.ToExtendedListString()));
+            printData.AddRange(
+                listData.OrderByDescending(a => a.Value.Date).Select(a => a.Value.ToExtendedListString()));
             File.WriteAllLines(Settings.ExtendedListFileName, printData);
 
             foreach (var kvp in d1)
