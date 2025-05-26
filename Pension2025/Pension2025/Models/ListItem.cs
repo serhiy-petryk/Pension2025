@@ -10,8 +10,8 @@ namespace Pension2025.Models
         public enum CourtTypeEnum {Okrujnyy, Apelyacia, Kasacia, Other}
 
         #region ======  Static  =======
-        public const string ListFileHeader = "Url\tResultKind\tSubListUrl\tNo\tType\tCourt\tJudge\tDate";
-        public const string ExtendedListFileHeader = "Advokat\tResult\tFrom\tTo\tTag\tUrl\tResultKind\tSubListUrl\tNo\tType\tCourt\tJudge\tDate";
+        public const string ListFileHeader = "Url\tResultKind\tNo\tType\tCourt\tJudge\tDate";
+        public const string ExtendedListFileHeader = "Advokat\tResult\tFrom\tTo\tTag\tUrl\tResultKind\tNo\tType\tCourt\tJudge\tDate";
         public static ListItem ParseFromHtml(string html, string parentFileName)
         {
             var i1 = html.IndexOf("text-body-tertiary", StringComparison.InvariantCulture);
@@ -86,6 +86,8 @@ namespace Pension2025.Models
         }
 
         #endregion
+
+        #region  ==========  Main properties  =========
         public string Url { get; set; }
         public string ResultKind { get; set; }
         public string SubListUrl { get; set; }
@@ -93,13 +95,12 @@ namespace Pension2025.Models
         public string Type { get; set; }
         public string Court { get; set; }
         public string Judge { get; set; }
-        public string Tag { get; set; }
         public DateTime Date { get; set; }
         public string Id => Path.GetFileName(Url);
-
         public bool IsValid => string.Equals(Type, "Адміністративне") &&
                                Court.IndexOf("район", StringComparison.CurrentCultureIgnoreCase) == -1 &&
                                ResultKind.IndexOf("Окрема", StringComparison.InvariantCultureIgnoreCase) == -1;
+        #endregion
 
         public CourtTypeEnum CourtType => Court.Contains("окружний")
             ? CourtTypeEnum.Okrujnyy
@@ -107,12 +108,13 @@ namespace Pension2025.Models
                 ? CourtTypeEnum.Apelyacia
                 : (Court.Contains("асаці") ? CourtTypeEnum.Kasacia : CourtTypeEnum.Other));
 
+        public string Tag { get; set; }
         public string From { get; set; }
         public string To { get; set; }
         public string Result { get; set; }
         public string Advokat { get; set; }
 
-        public string ToListString() => $"{Url}\t{ResultKind}\t{SubListUrl}\t{No}\t{Type}\t{Court}\t{Judge}\t{Date:yyyy-MM-dd}";
+        public string ToListString() => $"{Url}\t{ResultKind}\t{No}\t{Type}\t{Court}\t{Judge}\t{Date:yyyy-MM-dd}";
         public string ToExtendedListString() => $"{Advokat}\t{Result}\t{From}\t{To}\t{Tag}\t{ToListString()}";
 
         public override string ToString() => $"{ResultKind}\t{Type}\t{Court}\t{Tag}";
