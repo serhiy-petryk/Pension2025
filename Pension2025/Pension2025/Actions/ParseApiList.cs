@@ -8,7 +8,7 @@ using Pension2025.Models;
 
 namespace Pension2025.Actions
 {
-    public static class ParseJsonList
+    public static class ParseApiList
     {
         public class DataModel
         {

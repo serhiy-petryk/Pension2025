@@ -34,10 +34,10 @@ namespace Pension2025
             MessageBox.Show(@"Done!");
         }
 
-        private async void btnHttpList_Json_Click(object sender, System.EventArgs e)
+        private async void btnHttpList_Api_Click(object sender, System.EventArgs e)
         {
             ((Control)sender).Enabled = false;
-            await Task.Factory.StartNew(Actions.ParseJsonList.PrintUrlList);
+            await Task.Factory.StartNew(Actions.ParseApiList.PrintUrlList);
             ((Control)sender).Enabled = true;
             MessageBox.Show(@"Done!");
         }
@@ -45,7 +45,7 @@ namespace Pension2025
         private async void btnSaveToListJson_Click(object sender, System.EventArgs e)
         {
             ((Control)sender).Enabled = false;
-            await Task.Factory.StartNew(Actions.ParseJsonList.SaveToListFile);
+            await Task.Factory.StartNew(Actions.ParseApiList.SaveToListFile);
             ((Control)sender).Enabled = true;
             MessageBox.Show(@"Done!");
         }

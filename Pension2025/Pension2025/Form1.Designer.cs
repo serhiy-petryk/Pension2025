@@ -32,7 +32,7 @@ namespace Pension2025
             this.btnParseList = new System.Windows.Forms.Button();
             this.btnParseDetails = new System.Windows.Forms.Button();
             this.btnRemoveUselessTagsOfDetails = new System.Windows.Forms.Button();
-            this.btnHttpList_Json = new System.Windows.Forms.Button();
+            this.btnHttpList_Api = new System.Windows.Forms.Button();
             this.btnSaveToListApi = new System.Windows.Forms.Button();
             this.bttnCreateDsaLinkList = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -70,16 +70,16 @@ namespace Pension2025
             this.btnRemoveUselessTagsOfDetails.UseVisualStyleBackColor = true;
             this.btnRemoveUselessTagsOfDetails.Click += new System.EventHandler(this.btnRemoveUselessTagsOfDetails_Click);
             // 
-            // btnHttpList_Json
+            // btnHttpList_Api
             // 
-            this.btnHttpList_Json.Enabled = false;
-            this.btnHttpList_Json.Location = new System.Drawing.Point(384, 375);
-            this.btnHttpList_Json.Name = "btnHttpList_Json";
-            this.btnHttpList_Json.Size = new System.Drawing.Size(244, 27);
-            this.btnHttpList_Json.TabIndex = 3;
-            this.btnHttpList_Json.Text = "Debug.Print https list from ListApi folder";
-            this.btnHttpList_Json.UseVisualStyleBackColor = true;
-            this.btnHttpList_Json.Click += new System.EventHandler(this.btnHttpList_Json_Click);
+            this.btnHttpList_Api.Enabled = false;
+            this.btnHttpList_Api.Location = new System.Drawing.Point(307, 360);
+            this.btnHttpList_Api.Name = "btnHttpList_Api";
+            this.btnHttpList_Api.Size = new System.Drawing.Size(244, 27);
+            this.btnHttpList_Api.TabIndex = 3;
+            this.btnHttpList_Api.Text = "Debug.Print https list from ListApi folder";
+            this.btnHttpList_Api.UseVisualStyleBackColor = true;
+            this.btnHttpList_Api.Click += new System.EventHandler(this.btnHttpList_Api_Click);
             // 
             // btnSaveToListApi
             // 
@@ -108,7 +108,7 @@ namespace Pension2025
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.bttnCreateDsaLinkList);
             this.Controls.Add(this.btnSaveToListApi);
-            this.Controls.Add(this.btnHttpList_Json);
+            this.Controls.Add(this.btnHttpList_Api);
             this.Controls.Add(this.btnRemoveUselessTagsOfDetails);
             this.Controls.Add(this.btnParseDetails);
             this.Controls.Add(this.btnParseList);
@@ -123,7 +123,7 @@ namespace Pension2025
         private System.Windows.Forms.Button btnParseList;
         private System.Windows.Forms.Button btnParseDetails;
         private System.Windows.Forms.Button btnRemoveUselessTagsOfDetails;
-        private System.Windows.Forms.Button btnHttpList_Json;
+        private System.Windows.Forms.Button btnHttpList_Api;
         private System.Windows.Forms.Button btnSaveToListApi;
         private System.Windows.Forms.Button bttnCreateDsaLinkList;
     }
