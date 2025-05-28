@@ -65,5 +65,13 @@ namespace Pension2025
             ((Control)sender).Enabled = true;
             MessageBox.Show(@"Done!");
         }
+
+        private async void btnConvertRtfToTxt_Click(object sender, System.EventArgs e)
+        {
+            ((Control)sender).Enabled = false;
+            await Task.Factory.StartNew(Actions.DsaDetails.ConvertRtfFilesToTxt);
+            ((Control)sender).Enabled = true;
+            MessageBox.Show(@"Done!");
+        }
     }
 }

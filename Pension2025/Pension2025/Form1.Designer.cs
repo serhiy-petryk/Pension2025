@@ -36,6 +36,7 @@ namespace Pension2025
             this.btnSaveToListApi = new System.Windows.Forms.Button();
             this.bttnCreateDsaLinkList = new System.Windows.Forms.Button();
             this.btnHttpList_Dsa = new System.Windows.Forms.Button();
+            this.btnConvertRtfToTxt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnParseList
@@ -112,11 +113,22 @@ namespace Pension2025
             this.btnHttpList_Dsa.UseVisualStyleBackColor = true;
             this.btnHttpList_Dsa.Click += new System.EventHandler(this.btnHttpList_Dsa_Click);
             // 
+            // btnConvertRtfToTxt
+            // 
+            this.btnConvertRtfToTxt.Location = new System.Drawing.Point(307, 185);
+            this.btnConvertRtfToTxt.Name = "btnConvertRtfToTxt";
+            this.btnConvertRtfToTxt.Size = new System.Drawing.Size(172, 31);
+            this.btnConvertRtfToTxt.TabIndex = 7;
+            this.btnConvertRtfToTxt.Text = "Convert RTF files to txt";
+            this.btnConvertRtfToTxt.UseVisualStyleBackColor = true;
+            this.btnConvertRtfToTxt.Click += new System.EventHandler(this.btnConvertRtfToTxt_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnConvertRtfToTxt);
             this.Controls.Add(this.btnHttpList_Dsa);
             this.Controls.Add(this.bttnCreateDsaLinkList);
             this.Controls.Add(this.btnSaveToListApi);
@@ -139,6 +151,7 @@ namespace Pension2025
         private System.Windows.Forms.Button btnSaveToListApi;
         private System.Windows.Forms.Button bttnCreateDsaLinkList;
         private System.Windows.Forms.Button btnHttpList_Dsa;
+        private System.Windows.Forms.Button btnConvertRtfToTxt;
     }
 }
 

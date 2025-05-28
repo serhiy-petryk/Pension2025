@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Pension2025
@@ -17,13 +15,15 @@ namespace Pension2025
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            /*string rtfFilePath = @"E:\Users\System\Downloads\dc6f0322469b1d622c532904416caa09.rtf"; // Path to your RTF file
-            string txtFilePath = rtfFilePath.Replace(".rtf", ".1251.2.txt"); // Path to save plain text
+            /*Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            string rtfFilePath = @"E:\Quote\WebData\Minute\Polygon2003\Data\MP2003_20250524\MP2003_A_20250512.json"; // Path to your RTF file
+            string txtFilePath = rtfFilePath.Replace(".json", ".3.json"); // Path to save plain text
+            var s = File.ReadAllText(rtfFilePath);
+            File.WriteAllText(txtFilePath, s, Encoding.GetEncoding("windows-1251"));*/
 
-            if (File.Exists(rtfFilePath))
+            /*if (File.Exists(rtfFilePath))
             {
                 // Create a hidden RichTextBox
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 using (RichTextBox rtb = new RichTextBox())
                 {
                     rtb.LoadFile(rtfFilePath, RichTextBoxStreamType.RichText);
