@@ -108,12 +108,12 @@ namespace Pension2025.Actions
             var printData = new List<string>();
             printData.Add(ListItem.ListFileHeader);
             printData.AddRange(data.Values.Select(a => a.ToListString()));
-            File.WriteAllLines(Settings.ListFileName_Json, printData);
+            File.WriteAllLines(Settings.ListFileName_Api, printData);
 
-            var resultKindsFileName = Path.Combine(Settings.DataFolder, "ResultKinds.json.txt");
-            var typesFileName = Path.Combine(Settings.DataFolder, "Types.json.txt");
-            var courtsFileName = Path.Combine(Settings.DataFolder, "Courts.json.txt");
-            var byDateFileName = Path.Combine(Settings.DataFolder, "ByDate.json.txt");
+            var resultKindsFileName = Path.Combine(Settings.DataFolder, "ResultKinds.Api.txt");
+            var typesFileName = Path.Combine(Settings.DataFolder, "Types.Api.txt");
+            var courtsFileName = Path.Combine(Settings.DataFolder, "Courts.Api.txt");
+            var byDateFileName = Path.Combine(Settings.DataFolder, "ByDate.Api.txt");
 
             printData.Clear();
             printData.Add("ResultKind\tCount");

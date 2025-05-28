@@ -33,7 +33,7 @@ namespace Pension2025
             this.btnParseDetails = new System.Windows.Forms.Button();
             this.btnRemoveUselessTagsOfDetails = new System.Windows.Forms.Button();
             this.btnHttpList_Json = new System.Windows.Forms.Button();
-            this.btnSaveToListJson = new System.Windows.Forms.Button();
+            this.btnSaveToListApi = new System.Windows.Forms.Button();
             this.bttnCreateDsaLinkList = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -73,7 +73,7 @@ namespace Pension2025
             // btnHttpList_Json
             // 
             this.btnHttpList_Json.Enabled = false;
-            this.btnHttpList_Json.Location = new System.Drawing.Point(328, 34);
+            this.btnHttpList_Json.Location = new System.Drawing.Point(384, 375);
             this.btnHttpList_Json.Name = "btnHttpList_Json";
             this.btnHttpList_Json.Size = new System.Drawing.Size(244, 27);
             this.btnHttpList_Json.TabIndex = 3;
@@ -81,20 +81,19 @@ namespace Pension2025
             this.btnHttpList_Json.UseVisualStyleBackColor = true;
             this.btnHttpList_Json.Click += new System.EventHandler(this.btnHttpList_Json_Click);
             // 
-            // btnSaveToListJson
+            // btnSaveToListApi
             // 
-            this.btnSaveToListJson.Enabled = false;
-            this.btnSaveToListJson.Location = new System.Drawing.Point(328, 79);
-            this.btnSaveToListJson.Name = "btnSaveToListJson";
-            this.btnSaveToListJson.Size = new System.Drawing.Size(244, 31);
-            this.btnSaveToListJson.TabIndex = 4;
-            this.btnSaveToListJson.Text = "Save item list into List.Json.txt";
-            this.btnSaveToListJson.UseVisualStyleBackColor = true;
-            this.btnSaveToListJson.Click += new System.EventHandler(this.btnSaveToListJson_Click);
+            this.btnSaveToListApi.Location = new System.Drawing.Point(307, 30);
+            this.btnSaveToListApi.Name = "btnSaveToListApi";
+            this.btnSaveToListApi.Size = new System.Drawing.Size(244, 31);
+            this.btnSaveToListApi.TabIndex = 4;
+            this.btnSaveToListApi.Text = "Save item list into ListApi.txt";
+            this.btnSaveToListApi.UseVisualStyleBackColor = true;
+            this.btnSaveToListApi.Click += new System.EventHandler(this.btnSaveToListJson_Click);
             // 
             // bttnCreateDsaLinkList
             // 
-            this.bttnCreateDsaLinkList.Location = new System.Drawing.Point(30, 216);
+            this.bttnCreateDsaLinkList.Location = new System.Drawing.Point(307, 79);
             this.bttnCreateDsaLinkList.Name = "bttnCreateDsaLinkList";
             this.bttnCreateDsaLinkList.Size = new System.Drawing.Size(172, 31);
             this.bttnCreateDsaLinkList.TabIndex = 5;
@@ -108,7 +107,7 @@ namespace Pension2025
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.bttnCreateDsaLinkList);
-            this.Controls.Add(this.btnSaveToListJson);
+            this.Controls.Add(this.btnSaveToListApi);
             this.Controls.Add(this.btnHttpList_Json);
             this.Controls.Add(this.btnRemoveUselessTagsOfDetails);
             this.Controls.Add(this.btnParseDetails);
@@ -125,7 +124,7 @@ namespace Pension2025
         private System.Windows.Forms.Button btnParseDetails;
         private System.Windows.Forms.Button btnRemoveUselessTagsOfDetails;
         private System.Windows.Forms.Button btnHttpList_Json;
-        private System.Windows.Forms.Button btnSaveToListJson;
+        private System.Windows.Forms.Button btnSaveToListApi;
         private System.Windows.Forms.Button bttnCreateDsaLinkList;
     }
 }
