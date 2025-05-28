@@ -34,6 +34,7 @@ namespace Pension2025
             this.btnRemoveUselessTagsOfDetails = new System.Windows.Forms.Button();
             this.btnHttpList_Json = new System.Windows.Forms.Button();
             this.btnSaveToListJson = new System.Windows.Forms.Button();
+            this.bttnCreateDsaLinkList = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnParseList
@@ -90,11 +91,23 @@ namespace Pension2025
             this.btnSaveToListJson.UseVisualStyleBackColor = true;
             this.btnSaveToListJson.Click += new System.EventHandler(this.btnSaveToListJson_Click);
             // 
+            // bttnCreateDsaLinkList
+            // 
+            this.bttnCreateDsaLinkList.Enabled = false;
+            this.bttnCreateDsaLinkList.Location = new System.Drawing.Point(30, 216);
+            this.bttnCreateDsaLinkList.Name = "bttnCreateDsaLinkList";
+            this.bttnCreateDsaLinkList.Size = new System.Drawing.Size(172, 31);
+            this.bttnCreateDsaLinkList.TabIndex = 5;
+            this.bttnCreateDsaLinkList.Text = "Create DSA link list";
+            this.bttnCreateDsaLinkList.UseVisualStyleBackColor = true;
+            this.bttnCreateDsaLinkList.Click += new System.EventHandler(this.bttnCreateDsaLinkList_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.bttnCreateDsaLinkList);
             this.Controls.Add(this.btnSaveToListJson);
             this.Controls.Add(this.btnHttpList_Json);
             this.Controls.Add(this.btnRemoveUselessTagsOfDetails);
@@ -113,6 +126,7 @@ namespace Pension2025
         private System.Windows.Forms.Button btnRemoveUselessTagsOfDetails;
         private System.Windows.Forms.Button btnHttpList_Json;
         private System.Windows.Forms.Button btnSaveToListJson;
+        private System.Windows.Forms.Button bttnCreateDsaLinkList;
     }
 }
 

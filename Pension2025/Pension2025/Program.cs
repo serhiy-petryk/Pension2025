@@ -18,15 +18,17 @@ namespace Pension2025
             Application.SetCompatibleTextRenderingDefault(false);
 
             /*string rtfFilePath = @"E:\Users\System\Downloads\dc6f0322469b1d622c532904416caa09.rtf"; // Path to your RTF file
-            string txtFilePath = rtfFilePath.Replace(".rtf", ".txt"); // Path to save plain text
+            string txtFilePath = rtfFilePath.Replace(".rtf", ".1251.2.txt"); // Path to save plain text
 
             if (File.Exists(rtfFilePath))
             {
                 // Create a hidden RichTextBox
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 using (RichTextBox rtb = new RichTextBox())
                 {
                     rtb.LoadFile(rtfFilePath, RichTextBoxStreamType.RichText);
-                    File.WriteAllText(txtFilePath, rtb.Text, Encoding.UTF8);
+//                    File.WriteAllText(txtFilePath, rtb.Text, Encoding.GetEncoding("windows-1251"));
+                    File.WriteAllText(txtFilePath, rtb.Text.Replace("\n", Environment.NewLine), Encoding.GetEncoding(1251));
 //                    File.WriteAllText(filePath, content, Encoding.UTF8);
                     Console.WriteLine($"Conversion complete. Plain text saved to: {txtFilePath}");
                 }
