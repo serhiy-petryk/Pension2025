@@ -97,6 +97,13 @@ namespace Pension2025.Models
         public string Judge { get; set; }
         public DateTime Date { get; set; }
         public string Id => Path.GetFileName(Url);
+        public int CauseId {
+            get
+            {
+                var ss = Url.Split(new[] { @"/", "-" }, StringSplitOptions.None);
+                return int.Parse(ss[ss.Length - 2]);
+            }
+        }
         public bool IsValid => string.Equals(Type, "Адміністративне") &&
                                Court.IndexOf("район", StringComparison.CurrentCultureIgnoreCase) == -1 &&
                                ResultKind.IndexOf("Окрема", StringComparison.InvariantCultureIgnoreCase) == -1;

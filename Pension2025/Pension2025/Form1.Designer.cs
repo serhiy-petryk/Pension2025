@@ -35,6 +35,7 @@ namespace Pension2025
             this.btnHttpList_Api = new System.Windows.Forms.Button();
             this.btnSaveToListApi = new System.Windows.Forms.Button();
             this.bttnCreateDsaLinkList = new System.Windows.Forms.Button();
+            this.btnHttpList_Dsa = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnParseList
@@ -101,11 +102,22 @@ namespace Pension2025
             this.bttnCreateDsaLinkList.UseVisualStyleBackColor = true;
             this.bttnCreateDsaLinkList.Click += new System.EventHandler(this.bttnCreateDsaLinkList_Click);
             // 
+            // btnHttpList_Dsa
+            // 
+            this.btnHttpList_Dsa.Location = new System.Drawing.Point(307, 135);
+            this.btnHttpList_Dsa.Name = "btnHttpList_Dsa";
+            this.btnHttpList_Dsa.Size = new System.Drawing.Size(244, 27);
+            this.btnHttpList_Dsa.TabIndex = 6;
+            this.btnHttpList_Dsa.Text = "Debug.Print https list from DSA folder";
+            this.btnHttpList_Dsa.UseVisualStyleBackColor = true;
+            this.btnHttpList_Dsa.Click += new System.EventHandler(this.btnHttpList_Dsa_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnHttpList_Dsa);
             this.Controls.Add(this.bttnCreateDsaLinkList);
             this.Controls.Add(this.btnSaveToListApi);
             this.Controls.Add(this.btnHttpList_Api);
@@ -126,6 +138,7 @@ namespace Pension2025
         private System.Windows.Forms.Button btnHttpList_Api;
         private System.Windows.Forms.Button btnSaveToListApi;
         private System.Windows.Forms.Button bttnCreateDsaLinkList;
+        private System.Windows.Forms.Button btnHttpList_Dsa;
     }
 }
 

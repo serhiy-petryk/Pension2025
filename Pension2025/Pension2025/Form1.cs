@@ -57,5 +57,13 @@ namespace Pension2025
             ((Control)sender).Enabled = true;
             MessageBox.Show(@"Done!");
         }
+
+        private async void btnHttpList_Dsa_Click(object sender, System.EventArgs e)
+        {
+            ((Control)sender).Enabled = false;
+            await Task.Factory.StartNew(Actions.DsaList.PrintDsaLinkList);
+            ((Control)sender).Enabled = true;
+            MessageBox.Show(@"Done!");
+        }
     }
 }
