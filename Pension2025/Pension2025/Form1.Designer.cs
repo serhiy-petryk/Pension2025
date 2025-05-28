@@ -83,6 +83,7 @@ namespace Pension2025
             // 
             // btnSaveToListJson
             // 
+            this.btnSaveToListJson.Enabled = false;
             this.btnSaveToListJson.Location = new System.Drawing.Point(328, 79);
             this.btnSaveToListJson.Name = "btnSaveToListJson";
             this.btnSaveToListJson.Size = new System.Drawing.Size(244, 31);
@@ -93,7 +94,6 @@ namespace Pension2025
             // 
             // bttnCreateDsaLinkList
             // 
-            this.bttnCreateDsaLinkList.Enabled = false;
             this.bttnCreateDsaLinkList.Location = new System.Drawing.Point(30, 216);
             this.bttnCreateDsaLinkList.Name = "bttnCreateDsaLinkList";
             this.bttnCreateDsaLinkList.Size = new System.Drawing.Size(172, 31);
