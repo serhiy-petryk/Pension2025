@@ -101,7 +101,7 @@ namespace Pension2025
             this.bttnCreateDsaLinkList.TabIndex = 5;
             this.bttnCreateDsaLinkList.Text = "Create DSA link list";
             this.bttnCreateDsaLinkList.UseVisualStyleBackColor = true;
-            this.bttnCreateDsaLinkList.Click += new System.EventHandler(this.bttnCreateDsaLinkList_Click);
+            this.bttnCreateDsaLinkList.Click += new System.EventHandler(this.btnCreateDsaLinkList_Click);
             // 
             // btnHttpList_Dsa
             // 
