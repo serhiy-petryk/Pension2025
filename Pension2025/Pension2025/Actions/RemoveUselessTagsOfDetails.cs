@@ -7,8 +7,8 @@ namespace Pension2025.Actions
     {
         public static void Run()
         {
-            var folder = Path.Combine(Settings.DataFolder, "Details");
-            var newFolder = Path.Combine(Settings.DataFolder, "Details01");
+            var folder = Path.Combine(Settings.DataFolder, "DetailsApi");
+            var newFolder = Path.Combine(Settings.DataFolder, "DetailsApi01");
             if (!Directory.Exists(newFolder))
                 Directory.CreateDirectory(newFolder);
 

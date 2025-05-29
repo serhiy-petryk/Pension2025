@@ -64,6 +64,10 @@ namespace Pension2025.Actions
                     missingItems.Add(item);
                 }
             }
+
+            Debug.Print("\r\n\nMissing items\r\n");
+            foreach(var item in missingItems)
+                Debug.Print($"{item.Url}\t{item.No}\t{item.Court}");
         }
 
         public static void CreateDsaLinkList()
